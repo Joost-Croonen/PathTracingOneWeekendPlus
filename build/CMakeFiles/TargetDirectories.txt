@@ -1,0 +1,3 @@
+C:/Users/joost/source/repos/PathTracingOneWeekendPlus/build/CMakeFiles/PathTracingOneWeekendPlus.dir
+C:/Users/joost/source/repos/PathTracingOneWeekendPlus/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/joost/source/repos/PathTracingOneWeekendPlus/build/CMakeFiles/ZERO_CHECK.dir

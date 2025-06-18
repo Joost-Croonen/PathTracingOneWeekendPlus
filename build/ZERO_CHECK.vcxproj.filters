@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\joost\source\repos\PathTracingOneWeekendPlus\build\CMakeFiles\2e69352524c83daa981333136b835274\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{ECFC6B83-7360-3266-A5EC-568D7B800553}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

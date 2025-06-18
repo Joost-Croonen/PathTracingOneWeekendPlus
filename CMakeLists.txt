@@ -9,13 +9,18 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("TestSetup")
+project ("PathTracingOneWeekendPlus")
+
+
+find_package(OpenMP REQUIRED)
 
 # Add source to this project's executable.
-add_executable (TestSetup "TestSetup.cpp" "TestSetup.h")
+add_executable (PathTracingOneWeekendPlus   "main.cpp" "vec3.h" "color.h" "ray.h" "hittable.h" "sphere.h" "hittable_list.h" "rtweekend.h" "interval.h" "camera.h" "material.h" "aabb.h" "bvh.h" "texture.h" "rtw_stb_image.h" "perlin.h" "quad.h" "onb.h" "pdf.h")
+
+target_link_libraries(PathTracingOneWeekendPlus PRIVATE OpenMP::OpenMP_CXX)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET TestSetup PROPERTY CXX_STANDARD 20)
+  set_property(TARGET PathTracingOneWeekendPlus PROPERTY CXX_STANDARD 20)
 endif()
 
 # TODO: Add tests and install targets if needed.
