@@ -26,7 +26,7 @@ public:
 	double focus_dist = 10;				// Distance from camera lookfrom point to plane of perfect focus
 
 
-	void render(const hittable& world, const hittable& lights) {
+	void render(const hittable_list& world, const hittable_list& lights) {
 		initialize();
 		auto start = std::chrono::steady_clock::now();
 		std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
@@ -151,7 +151,7 @@ private:
 		return center + (p[0] * defocus_disk_u + p[1] * defocus_disk_v);
 	}
 
-	color ray_color(const ray& r, double depth, const hittable& world, const hittable& lights) {
+	color ray_color(const ray& r, double depth, const hittable_list& world, const hittable_list& lights) {
 		if (depth <= 0) {
 			return color(0, 0, 0);
 		}
@@ -164,18 +164,25 @@ private:
 		scatter_record srec;
 		color emitted_light = rec.mat->emitted(r, rec, rec.u, rec.v, rec.p);
 
-		if (!rec.mat->scatter(r, rec, srec))
+		if (!rec.mat->scatter(r, rec, srec)) {
 			return emitted_light;
+		}
 
 		if (srec.skip_pdf) {
 			return srec.attenuation * ray_color(srec.skip_pdf_ray, depth - 1, world, lights);
 		}
-
-		auto light_pdf_ptr = make_shared<hittable_pdf>(lights, rec.p);
-		mixture_pdf mixed_pdf(light_pdf_ptr, srec.pdf_ptr);
-
-		ray scattered = ray(rec.p, mixed_pdf.generate());
-		auto pdf_value = mixed_pdf.value(scattered.direction());
+		ray scattered;
+		double pdf_value;
+		if (lights.objects.size() == 0) {
+			scattered = ray(rec.p, srec.pdf_ptr->generate());
+			pdf_value = srec.pdf_ptr->value(scattered.direction());
+		}
+		else {
+			auto light_pdf_ptr = make_shared<hittable_pdf>(lights, rec.p);
+			mixture_pdf mixed_pdf(light_pdf_ptr, srec.pdf_ptr);
+			scattered = ray(rec.p, mixed_pdf.generate());
+			pdf_value = mixed_pdf.value(scattered.direction());
+		}
 
 		double scatter_pdf = rec.mat->scattering_pdf(r, rec, scattered);
 

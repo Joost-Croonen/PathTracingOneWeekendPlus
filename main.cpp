@@ -16,8 +16,8 @@
 void spheres() {
 	hittable_list world;
     hittable_list lights;
-
-    auto checker = make_shared<checker_texture>(0.32, color(.2, .3, .1), color(.9, .9, .9));
+    
+    auto checker = make_shared<checker_texture>(1.28, color(.4, .4, .4), color(.6, .6, .6));
     world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, make_shared<lambertian>(checker)));
 
     for (int a = -11; a < 11; a++) {
@@ -64,8 +64,8 @@ void spheres() {
     camera cam;
 
     cam.aspect_ratio = 16.0 / 9.0;
-    cam.image_width = 400;
-    cam.samples_per_pixel = 20;
+    cam.image_width = 800;
+    cam.samples_per_pixel = 40;
     cam.max_depth = 20;
 
     cam.vfov = 20;
@@ -203,7 +203,7 @@ void simple_light() {
 
     auto difflight = make_shared<diffuse_light>(color(4, 4, 4));
     world.add(make_shared<quad>(point3(3, 1, -2), vec3(2, 0, 0), vec3(0, 2, 0), difflight));
-
+    lights.add(make_shared<quad>(point3(3, 1, -2), vec3(2, 0, 0), vec3(0, 2, 0), difflight));
     camera cam;
 
     cam.aspect_ratio = 16.0 / 9.0;
@@ -287,7 +287,7 @@ void cornell_box() {
 }
 
 int main() {
-    switch (3) {
+    switch (1) {
         case 1: spheres(); break;
         case 2: checkered_spheres(); break;
         case 3: earth(); break;

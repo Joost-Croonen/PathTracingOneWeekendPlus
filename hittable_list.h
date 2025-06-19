@@ -49,7 +49,7 @@ public:
 
 	vec3 random(const point3& origin) const override {
 		auto int_size = int(objects.size());
-		return objects[random_int(0, int_size - 1)]->random(origin);
+	return objects[random_int(0, int_size - 1)]->random(origin);
 	}
 
 private:
